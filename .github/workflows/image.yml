@@ -1,0 +1,27 @@
+name: Publish Backend Image
+on:
+    push:
+        branches: [master]
+
+jobs:
+    Publish_Backend_Image:
+        name: Publish Backend Image
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: Login to GHCR
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build and Push
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  push: true
+                  tags: ghcr.io/stackoverflowisbetterthananyai/fullstack-test-backend:latest
