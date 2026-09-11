@@ -1,4 +1,3 @@
-# Offizielles PHP-Image mit integriertem Webserver
 FROM php:8.4-cli
 
 WORKDIR /app
